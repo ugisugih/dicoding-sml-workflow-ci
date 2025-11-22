@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH_NAME: ${{ github.ref_name }}
+      MLFLOW_TRACKING_URI: "file:./mlruns"
 
     steps:
       - name: Checkout repo
