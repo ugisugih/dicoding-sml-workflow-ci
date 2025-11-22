@@ -13,10 +13,10 @@ jobs:
       - name: Run actions/checkout@v3
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12.7
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12.7"
+          python-version: "3.11.9"
 
       - name: Install dependencies
         run: |
@@ -26,7 +26,7 @@ jobs:
 
       - name: Run mlflow project
         run: |
-          mlflow run MLProject
+          mlflow run MLProject --env-manager virtualenv
 
       - name: Install Python dependencies (post-run check)
         run: |
