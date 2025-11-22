@@ -9,7 +9,7 @@ import joblib
 
 mlflow.set_experiment("diabetes_ugisugih_experiment")
 
-DATA_PATH = "diabetes_preprocessing.csv"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "diabetes_preprocessing.csv")
 TARGET = "Outcome"
 
 def load_data(path):
