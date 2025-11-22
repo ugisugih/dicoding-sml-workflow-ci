@@ -9,13 +9,10 @@ from sklearn.metrics import roc_auc_score, f1_score, accuracy_score
 import joblib
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, default="diabetes_preprocessing.csv")
-args = parser.parse_args()
 
 mlflow.set_experiment("diabetes_ugisugih_experiment")
 
-DATA_PATH = args.data_path
+DATA_PATH = "diabetes_preprocessing.csv"
 TARGET = "Outcome"
 
 def load_data(path):
