@@ -8,9 +8,11 @@ on:
 jobs:
   train:
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: ${{ github.ref_name }}
 
     steps:
-      - name: Run actions/checkout@v3
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -18,31 +20,42 @@ jobs:
         with:
           python-version: "3.11.9"
 
+      - name: Show debug info
+        run: |
+          python --version
+          which python
+          python -m pip --version
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install mlflow xgboost joblib
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+          python -m pip install mlflow xgboost joblib
 
-      - name: Run mlflow project
+      - name: Run MLflow project (use virtualenv)
         run: |
-          mlflow run MLProject --env-manager virtualenv
-
-      - name: Install Python dependencies (post-run check)
-        run: |
-          pip show mlflow || pip install mlflow
-          pip show xgboost || pip install xgboost
+          mlflow --version
+          mlflow run . --env-manager virtualenv -v
 
       - name: Get latest MLflow run_id
         run: |
-          RUN_ID=$(ls -td mlruns/0/*/ | grep -Eo '[0-9a-f]{32}' | head -n 1)
-          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
-          echo "Latest run_id: $RUN_ID"
+          set -e
+          if [ -d mlruns/0 ]; then
+            LATEST_DIR=$(ls -td mlruns/0/* | head -n 1)
+            RUN_ID=$(basename "$LATEST_DIR")
+            echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+            echo "Latest run_id: $RUN_ID"
+          else
+            echo "No mlruns/0 directory found"
+            exit 1
+          fi
 
-      - name: Commit & Push results
+      - name: Commit & Push results (mlruns/)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add mlruns/
-          git commit -m "Upload artifact [skip ci]" || echo "No changes to commit"
-          git push origin main
+          git add mlruns/ || echo "no mlruns to add"
+          git commit -m "Upload mlruns artifacts [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:$BRANCH_NAME
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
