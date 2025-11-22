@@ -5,6 +5,9 @@ on:
   push:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   train:
     runs-on: ubuntu-latest
@@ -67,12 +70,10 @@ jobs:
             exit 1
           fi
 
-      - name: Commit & Push results (mlruns/)
+      - name: Commit & Push results
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add mlruns/ || echo "no mlruns to add"
-          git commit -m "Upload mlruns artifacts [skip ci]" || echo "No changes to commit"
-          git push origin HEAD:$BRANCH_NAME
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git add mlruns/
+          git commit -m "Upload artifact [skip ci]" || echo "No changes to commit"
+          git push origin master
