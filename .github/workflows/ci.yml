@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up job
-        run: echo "Start job: $(date)"
-
       - name: Run actions/checkout@v3
         uses: actions/checkout@v4
 
