@@ -48,7 +48,7 @@ jobs:
 
           python -m pip install mlflow xgboost joblib
 
-          python modelling.py
+          python MLProject/modelling.py
 
         env:
           TZ: "Asia/Jakarta"
