@@ -11,11 +11,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, default="diabetes_preprocessing.csv")
-parser.add_argument("--tracking_uri", type=str, default="http://127.0.0.1:5000")
 args = parser.parse_args()
 
-MLFLOW_TRACKING_URI = os.environ.get("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000")
-mlflow.set_tracking_uri(args.tracking_uri)
 mlflow.set_experiment("diabetes_ugisugih_experiment")
 
 DATA_PATH = args.data_path
