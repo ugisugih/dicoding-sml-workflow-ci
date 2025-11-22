@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/dicoding-sml-workflow-ci/dicoding-sml-workflow-ci/mlruns/741136731982597845/f11147e95cab41ff9c85fdff94202664/artifacts
+end_time: 1763816434070
+entry_point_name: ''
+experiment_id: '741136731982597845'
+lifecycle_stage: active
+run_id: f11147e95cab41ff9c85fdff94202664
+run_name: xgb_autolog_run
+run_uuid: f11147e95cab41ff9c85fdff94202664
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763816429443
+status: 3
+tags: []
+user_id: runner

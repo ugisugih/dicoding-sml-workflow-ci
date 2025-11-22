@@ -1,0 +1,29 @@
+artifact_path: model
+flavors:
+  python_function:
+    data: model.xgb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.11.9
+  xgboost:
+    code: null
+    data: model.xgb
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: xgb
+    xgb_version: 3.1.2
+mlflow_version: 2.19.0
+model_size_bytes: 172001
+model_uuid: 5c75047c9c654d33983eae868ce50698
+run_id: f11147e95cab41ff9c85fdff94202664
+signature:
+  inputs: '[{"type": "double", "name": "Pregnancies", "required": true}, {"type":
+    "double", "name": "Glucose", "required": true}, {"type": "double", "name": "BloodPressure",
+    "required": true}, {"type": "double", "name": "SkinThickness", "required": true},
+    {"type": "double", "name": "Insulin", "required": true}, {"type": "double", "name":
+    "BMI", "required": true}, {"type": "double", "name": "DiabetesPedigreeFunction",
+    "required": true}, {"type": "double", "name": "Age", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2025-11-22 13:00:31.231284'
