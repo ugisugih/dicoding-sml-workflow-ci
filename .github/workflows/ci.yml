@@ -32,10 +32,10 @@ jobs:
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
           python -m pip install mlflow xgboost joblib
 
-      - name: Run MLflow project (use virtualenv)
+      - name: Run MLflow project
         run: |
           mlflow --version
-          mlflow run . --env-manager virtualenv -v
+          mlflow run . --env-manager virtualenv
 
       - name: Get latest MLflow run_id
         run: |
